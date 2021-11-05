@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SHAH SANS—PINAR KAZAK</title>
+        <meta name="description" content="Graphic Designer based in Istanbul & The Hague.">
+        <meta name="keywords" content="graphic, design, web, development, website, hague, istanbul, pınar, pinar, kazak, shah, sans, typeface">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/icon.png" type="image/png">
+        <link href='/webfonts/Suisse-Intl.css' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="/main.css">
+        <meta charset="UTF-8">
+        <style>
+            @font-face {
+                font-family: "Shah Sans";
+                src: url("/webfonts/ShahGX-Beta.ttf") format("truetype");
+            }
+            footer {
+                min-height: 0;
+                transition: min-height 1s ease;
+            }
+            p {
+                width:inherit;
+                padding-right: 3vh;
+                padding-bottom:0;
+            }
+            .font {
+                padding-left:2vh;
+                font-family: "Shah Sans";
+                font-variation-settings: "wdth" 600, "thck" 40, "RNDN" 0.3;
+            }
+            .font h1 {
+                font-size:50vh;
+                line-height: 37.5vh;
+            }
+            .font h2 {
+                padding-top:7vh;
+                padding-left:15vh;
+                white-space:nowrap;
+                font-size:20vh;
+                line-height: 24vh;
+            }
+            .font p {
+                font-size:3.4vh;
+                line-height:4vh;
+            }
+            .font:hover {
+                font-family: "Shah Sans";
+            }
+            form.font-controls {
+                position:absolute;
+                bottom:5.334vh;
+            }
+            form label {
+                display:flex;
+                justify-content: space-between;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <h><a href="/">PINAR KAZAK</a></h>
+            <span><a href="/tags">WORKS</a></span>
+            <span><a href="/about">ABOUT</a></span>
+        </nav>
+        <div id="gallery">
+            <div class="info">
+                <p>Shah Sans is a python generated variable font, made with Python in Robofont. Inspired by the shape shifting folklore of the middle east, Shahmaran, it has a wide range of variance in width, thickness and roundness. This ongoing project explores the structure of variable fonts in terms of engineering, design and generation, which in the future, will help generate other fonts using different constructions. The typeface was developed with the supervision of <a href="https://www.kabk.nl/docenten/just-van-rossum" target="_blank">Just van Rossum</a>.</br>
+                    <br>
+                    <a href="https://github.com/biberonsuz/Shah-Sans" target="_blank">Github Repository</a></br>
+                    <br>
+                    Made with <a href="https://robofont.com" target="_blank">RoboFont</a>, <a href="https://github.com/fonttools/fonttools" target="_blank">fontTools</a>, <a href="https://github.com/googlefonts/ufo2ft" target="_blank">ufo2ft</a>.
+                </p>
+                <form class="font-controls">
+                    <label id="width">Width <span>600</span></label><br>
+                    <input type="range" min="100" max="900" value="600" class="slider" id="width">
+                    </br>
+                    <br>
+                    <label id="thickness">Thickness <span>40</span></label><br>
+                    <input type="range" min="5" max="50" value="40" class="slider" id="thickness">
+                    </br>
+                    <br>
+                    <label id="roundness">Roundness <span>0.3</span></label><br>
+                    <input type="range" min="0" max="0.5" value="0.3" step="0.01" class="slider" id="roundness">
+                    </br>
+                    <br>
+                    <label id="contrast">Contrast <span>0.3</span></label><br>
+                    <input type="range" min="0" max="0.25" value="0.2" step="0.01" class="slider" id="contrast">
+                </form>
+            </div>  
+            <div class="font">
+                <h1>shah sans</h1>
+            </div>
+            <div class="font">
+                <h2>she is the serpent.<br>she is the woman.<br>she is the flesh.</h2>
+            </div>
+            <div class="font">
+                <h2>she is the healer.<br>she is the curse <br> and the cursed.</h2>
+            </div>
+            
+        <footer>
+            <span id="title">SHAH SANS</span>
+            <span id="tags"><a href="/tags/letter-design.html">LETTER DESIGN</a></span>
+            <span id="year">2021.</span>
+        </footer>
+        <script>
+            const widthSlider = document.querySelector('input#width')
+            const thicknessSlider = document.querySelector('input#thickness')
+            const roundnessSlider = document.querySelector('input#roundness')
+            const contrastSlider = document.querySelector('input#contrast')
+            const text = document.querySelectorAll('.font')
+
+            widthSlider.addEventListener('input', () => {
+                document.querySelector('form label#width span').innerHTML = `${widthSlider.value}`
+                text.forEach(el => {
+                    el.style.fontVariationSettings = `"wdth" ${widthSlider.value}, "thck" ${thicknessSlider.value}, "RNDN" ${roundnessSlider.value}, "CNTR" ${contrastSlider.value}`
+                })
+            })
+            thicknessSlider.addEventListener('input', () => {
+                document.querySelector('form label#thickness span').innerHTML = `${thicknessSlider.value}`
+                text.forEach(el => {
+                    el.style.fontVariationSettings = `"wdth" ${widthSlider.value}, "thck" ${thicknessSlider.value}, "RNDN" ${roundnessSlider.value}, "CNTR" ${contrastSlider.value}`
+                })
+            })
+            roundnessSlider.addEventListener('input', () => {
+                document.querySelector('form label#roundness span').innerHTML = `${roundnessSlider.value}`
+                text.forEach(el => {
+                    el.style.fontVariationSettings = `"wdth" ${widthSlider.value}, "thck" ${thicknessSlider.value}, "RNDN" ${roundnessSlider.value}, "CNTR" ${contrastSlider.value}`
+                })
+            })
+            contrastSlider.addEventListener('input', () => {
+                document.querySelector('form label#contrast span').innerHTML = `${contrastSlider.value}`
+                text.forEach(el => {
+                    el.style.fontVariationSettings = `"wdth" ${widthSlider.value}, "thck" ${thicknessSlider.value}, "RNDN" ${roundnessSlider.value}, "CNTR" ${contrastSlider.value}`
+                })
+            })
+        </script>
+        <script src="works.js"></script>
+    </body>
+</html>

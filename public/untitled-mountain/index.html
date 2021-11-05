@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Untitled Mountain - Pınar Kazak</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="icon" type="image/png" href="icon.png">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			body {
+				background-color: #000;
+				color: #fff;
+			}
+			a {
+				color: #ffb3bb;
+				padding: 5px;
+				text-align: left;
+			}
+			#bottom {
+				bottom:0;
+				max-width:40vw;
+			}
+			#right {
+				bottom:0;
+				right:0;
+				text-align:right;
+			}
+			#audio {
+				display:none;
+			}
+			@media only screen and (max-width: 600px) {
+				#right {
+					top:0;
+					left:0;
+				}
+				.info {
+					font-size: 10px;
+					padding: 5px 5px 2px 5px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<audio id="audio" src="la-vie-en-rose.mp3"></audio>
+		<div class="info" id="bottom">
+			<a onclick="center()">Center</a> 
+			<a onclick="play()">Play audio</a>
+		</div>
+		<div class="info" id="right">
+			Drag to rotate, scroll to zoom, arrows to pan, click to focus.
+		</div>
+		<script src="js/three.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/threex.domevents.js"></script>
+		<script>
+
+
+			/*
+			 * Cloth Simulation using a relaxed constraints solver
+			 */
+
+			// Suggested Readings
+
+			// Advanced Character Physics by Thomas Jakobsen Character
+			// http://freespace.virgin.net/hugo.elias/models/m_cloth.htm
+			// http://en.wikipedia.org/wiki/Cloth_modeling
+			// http://cg.alexandra.dk/tag/spring-mass-system/
+			// Real-time Cloth Animation http://www.darwin3d.com/gamedev/articles/col0599.pdf
+
+			var params = {
+				enableWind: true,
+			};
+
+			var DAMPING = 0.03;
+			var DRAG = 1 - DAMPING;
+			var MASS = 0.1;
+			var restDistance = 15;
+
+			var xSegs = 15;
+			var ySegs = 15;
+
+			var clothFunction = plane( restDistance * xSegs, restDistance * ySegs );
+
+			var cloth = new Cloth( xSegs, ySegs );
+
+			var GRAVITY = 981 * 1.4;
+			var gravity = new THREE.Vector3( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
+
+
+			var TIMESTEP = 18 / 1000;
+			var TIMESTEP_SQ = TIMESTEP * TIMESTEP;
+
+			var windForce = new THREE.Vector3( 0, 0, 0 );
+
+			var tmpForce = new THREE.Vector3();
+
+			var lastTime;
+
+			let pins = [0, 15, 240, 255, 7, 13, 18, 34, 86, 100, 151, 159, 128, 224, 210, 240]
+			let pinsY= [0 , 0 , 0 ,  0 , 0,-10,-30,-20, 100, 50, -50, 20,  20,  10 , 0 ,  0]
+
+			let centerX = 0
+			let centerZ = 0
+
+			let globalControls
+
+			function plane( width, height ) {
+
+				return function ( u, v, target ) {
+
+					var x = ( u - 0.5 ) * width;
+					var y = 0;
+					var z = ( v + 0.5 ) * height;
+
+					target.set( x, y, z );
+
+				};
+
+			}
+
+			function Particle( x, y, z, mass ) {
+
+				this.position = new THREE.Vector3();
+				this.previous = new THREE.Vector3();
+				this.original = new THREE.Vector3();
+				this.a = new THREE.Vector3( 0, 0, 0 ); // acceleration
+				this.mass = mass;
+				this.invMass = 1 / mass;
+				this.tmp = new THREE.Vector3();
+				this.tmp2 = new THREE.Vector3();
+
+				// init
+
+				clothFunction( x, y, this.position ); // position
+				clothFunction( x, y, this.previous ); // previous
+				clothFunction( x, y, this.original );
+
+			}
+
+			// Force -> Acceleration
+
+			Particle.prototype.addForce = function ( force ) {
+
+				this.a.add(
+					this.tmp2.copy( force ).multiplyScalar( this.invMass )
+				);
+
+			};
+
+
+			// Performs Verlet integration
+
+			Particle.prototype.integrate = function ( timesq ) {
+
+				var newPos = this.tmp.subVectors( this.position, this.previous );
+				newPos.multiplyScalar( DRAG ).add( this.position );
+				newPos.add( this.a.multiplyScalar( timesq ) );
+
+				this.tmp = this.previous;
+				this.previous = this.position;
+				this.position = newPos;
+
+				this.a.set( 0, 0, 0 );
+
+			};
+
+
+			var diff = new THREE.Vector3();
+
+			function satisfyConstraints( p1, p2, distance ) {
+
+				diff.subVectors( p2.position, p1.position );
+				var currentDist = diff.length();
+				if ( currentDist === 0 ) return; // prevents division by 0
+				var correction = diff.multiplyScalar( 1 - distance / currentDist );
+				var correctionHalf = correction.multiplyScalar( 0.5 );
+				p1.position.add( correctionHalf );
+				p2.position.sub( correctionHalf );
+
+			}
+
+
+			function Cloth( w, h ) {
+
+				w = w;
+				h = h;
+				this.w = w;
+				this.h = h;
+
+				var particles = [];
+				var constraints = [];
+
+				var u, v;
+
+				// Create particles
+				for ( v = 0; v <= h; v ++ ) {
+
+					for ( u = 0; u <= w; u ++ ) {
+
+						particles.push(
+							new Particle( u / w,  v / h, 0, MASS )
+						);
+
+					}
+
+				}
+
+				// Structural
+
+				for ( v = 0; v < h; v ++ ) {
+
+					for ( u = 0; u < w; u ++ ) {
+
+						constraints.push( [
+							particles[ index( u, v ) ],
+							particles[ index( u, v + 1 ) ],
+							restDistance
+						] );
+
+						constraints.push( [
+							particles[ index( u, v ) ],
+							particles[ index( u + 1, v ) ],
+							restDistance
+						] );
+
+					}
+
+				}
+
+				for ( u = w, v = 0; v < h; v ++ ) {
+
+					constraints.push( [
+						particles[ index( u, v ) ],
+						particles[ index( u, v + 1 ) ],
+						restDistance
+
+					] );
+
+				}
+
+				for ( v = h, u = 0; u < w; u ++ ) {
+
+					constraints.push( [
+						particles[ index( u, v ) ],
+						particles[ index( u + 1, v ) ],
+						restDistance
+					] );
+
+				}
+
+
+				// While many systems use shear and bend springs,
+				// the relaxed constraints model seems to be just fine
+				// using structural springs.
+				// Shear
+				// var diagonalDist = Math.sqrt(restDistance * restDistance * 2);
+
+
+				// for (v=0;v<h;v++) {
+				// 	for (u=0;u<w;u++) {
+
+				// 		constraints.push([
+				// 			particles[index(u, v)],
+				// 			particles[index(u+1, v+1)],
+				// 			diagonalDist
+				// 		]);
+
+				// 		constraints.push([
+				// 			particles[index(u+1, v)],
+				// 			particles[index(u, v+1)],
+				// 			diagonalDist
+				// 		]);
+
+				// 	}
+				// }
+
+
+				this.particles = particles;
+				this.constraints = constraints;
+
+				function index( u, v ) {
+
+					return u + v * ( w + 1 );
+
+				}
+
+				this.index = index;
+
+			}
+
+			function simulate( time ) {
+
+				if ( ! lastTime ) {
+
+					lastTime = time;
+					return;
+
+				}
+
+				var i, j, il, particles, particle, constraints, constraint;
+
+				// Aerodynamics forces
+
+				if ( params.enableWind ) {
+
+					var indx;
+					var normal = new THREE.Vector3();
+					var indices = clothGeometry.index;
+					var normals = clothGeometry.attributes.normal;
+
+					particles = cloth.particles;
+
+					for ( i = 0, il = indices.count; i < il; i += 3 ) {
+
+						for ( j = 0; j < 3; j ++ ) {
+
+							indx = indices.getX( i + j );
+							normal.fromBufferAttribute( normals, indx );
+							tmpForce.copy( normal ).normalize().multiplyScalar( normal.dot( windForce ) );
+							particles[ indx ].addForce( tmpForce );
+
+						}
+
+					}
+
+				}
+
+				for ( particles = cloth.particles, i = 0, il = particles.length; i < il; i ++ ) {
+
+					particle = particles[ i ];
+					particle.addForce( gravity );
+
+					particle.integrate( TIMESTEP_SQ );
+
+				}
+
+				// Start Constraints
+
+				constraints = cloth.constraints;
+				il = constraints.length;
+
+				for ( i = 0; i < il; i ++ ) {
+
+					constraint = constraints[ i ];
+					satisfyConstraints( constraint[ 0 ], constraint[ 1 ], constraint[ 2 ] );
+
+				}
+
+
+				// Floor Constraints
+
+				// Pin Constraints
+
+				for ( i = 0; i < pins.length; i ++ ) {
+
+					var xy = pins[ i ];
+					var p = particles[ xy ];
+					p.position.copy( p.original );
+					p.position.y = pinsY[i];
+					p.previous.copy( p.original );
+
+				}
+
+
+			}
+
+			/* testing cloth simulation */
+
+			var container
+			var camera, scene, renderer;
+
+			var clothGeometry;
+			var object;
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				// scene
+
+				scene = new THREE.Scene();
+				//scene.fog = new THREE.Fog( 0xcce0ff, 500, 10000 );
+
+				// camera
+
+				camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.set( 0, 10, 0 );
+
+				// renderer
+				renderer = new THREE.WebGLRenderer( { antialias: false } )
+				renderer.setPixelRatio( window.devicePixelRatio )
+				renderer.setSize( window.innerWidth, window.innerHeight )
+
+				container.appendChild( renderer.domElement )
+
+				const domEvents = new THREEx.DomEvents(camera, renderer.domElement)
+
+				renderer.outputEncoding = THREE.sRGBEncoding
+
+				renderer.shadowMap.enabled = true
+				renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+				// controls
+				var controls = new THREE.OrbitControls( camera, renderer.domElement )
+				controls.maxPolarAngle = Math.PI * 0.5
+				controls.minDistance = 100
+				controls.maxDistance = 5500//default: 2500
+				controls.keyPanSpeed = 100.0
+				controls.zoomSpeed = 0.5 //def 0.3
+				controls.target = new THREE.Vector3(centerX, -75, centerZ)
+				globalControls = controls
+
+				// lights
+
+				let ambient = new THREE.AmbientLight( 0xeeeeee, 0.9 ) // pinkish hue 0x555ffe 
+				ambient.position.set(centerX,1500,centerZ)
+				scene.add(ambient)
+
+
+				var light = new THREE.DirectionalLight( 0xffbbbb, 0.5 );
+				light.position.set( centerX, 50, centerZ );
+				light.position.multiplyScalar( 1.3 );
+
+				light.castShadow = true;
+
+				light.shadow.mapSize.width = 1024;
+				light.shadow.mapSize.height = 1024;
+
+				var d = 250;
+
+				light.shadow.camera.left = - d;
+				light.shadow.camera.right = d;
+				light.shadow.camera.top = d;
+				light.shadow.camera.bottom = - d;
+				light.shadow.camera.far = 600;
+
+				scene.add( light );
+
+				const loader = new THREE.TextureLoader()
+
+				//room
+				let roomGeometry = new THREE.BoxBufferGeometry(6000, 3000, 6000)
+				roomGeometry.scale( - 1, 1, 1 );
+
+        		const roomMaterials = [
+	    		new THREE.MeshLambertMaterial({
+                	map: loader.load('textures/walls1.png')
+            	}),
+   		 		new THREE.MeshLambertMaterial({
+                	map: loader.load('textures/walls2.png')
+            	}),
+    			new THREE.MeshLambertMaterial({
+                map: loader.load('textures/walls3.png')
+            	}),
+	    		new THREE.MeshLambertMaterial({
+                map: loader.load('textures/walls4.png')
+            	}),
+	    		new THREE.MeshLambertMaterial({
+            	    map: loader.load('textures/walls5.png')
+           		}),
+	    		new THREE.MeshLambertMaterial({
+            	    map: loader.load('textures/walls6.png')
+            	}),
+				]
+
+				let room = new THREE.Mesh(roomGeometry, roomMaterials)
+				room.position.set(0,500,0)
+				room.receiveShadow = true
+				room.castShadow = true
+				scene.add(room)
+				
+				//clickable text
+				var clickGeometry = new THREE.PlaneGeometry( 1750, 2000, 32 );
+				var clickMaterial = new THREE.ShadowMaterial( {color: 0xffffff, side: THREE.DoubleSide} )
+				clickGeometry.opacity = 1
+
+				//white text
+				var whiteClick = new THREE.Mesh( clickGeometry, clickMaterial );
+				whiteClick.position.set(-2100, 250, -3000)
+				scene.add( whiteClick )	
+
+				domEvents.addEventListener(whiteClick, 'click', e => {
+					camera.position.z = 500
+					controls.target = new THREE.Vector3(whiteClick.position.x, whiteClick.position.y, whiteClick.position.z)
+					controls.update()
+					globalControls = controls
+				})
+				domEvents.addEventListener(whiteClick, 'touchstart', e => {
+					camera.position.z = 500
+					controls.target = new THREE.Vector3(whiteClick.position.x, whiteClick.position.y, whiteClick.position.z)
+					controls.update()
+					globalControls = controls
+				})
+				
+				//pink text
+				var pinkClick = new THREE.Mesh( clickGeometry, clickMaterial );
+				pinkClick.rotation.y = 1.57
+				pinkClick.position.set(-3000, 250, -2100)
+				scene.add( pinkClick )
+
+				domEvents.addEventListener(pinkClick, 'click', e => {
+					camera.position.z = 500
+					controls.target = new THREE.Vector3(pinkClick.position.x, pinkClick.position.y, pinkClick.position.z)
+					controls.update()
+					globalControls = controls
+				})
+				domEvents.addEventListener(pinkClick, 'touchstart', e => {
+					camera.position.z = 500
+					controls.target = new THREE.Vector3(pinkClick.position.x, pinkClick.position.y, pinkClick.position.z)
+					controls.update()
+					globalControls = controls
+				})
+
+				var descGeometry = new THREE.PlaneGeometry( 1000, 500, 32 );
+				var descClick = new THREE.Mesh( descGeometry, clickMaterial );
+				descClick.position.set(2500,150, -3000)
+				scene.add( descClick )
+
+				domEvents.addEventListener(descClick, 'click', e => {
+					camera.position.z = 500
+					controls.target = new THREE.Vector3(descClick.position.x, descClick.position.y, descClick.position.z)
+					controls.update()
+					globalControls = controls
+				})
+				domEvents.addEventListener(descClick, 'touchstart', e => {
+					camera.position.z = 500
+					controls.target = new THREE.Vector3(descClick.position.x, descClick.position.y, descClick.position.z)
+					controls.update()
+					globalControls = controls
+				})
+				
+				//panorama
+				var panoGeometry = new THREE.SphereBufferGeometry( 500, 60, 60 );
+				panoGeometry.scale( - 1, 1, 1 );
+
+				var panoTexture = loader.load( 'textures/blanc.jpg' );
+				var panoMaterial = new THREE.MeshLambertMaterial( { map: panoTexture } );
+				pano = new THREE.Mesh( panoGeometry, panoMaterial );
+				pano.receiveShadow = true;
+				pano.castShadow = false;
+				pano.position.set(centerX, 0, centerZ)
+				scene.add( pano );
+
+				domEvents.addEventListener(pano, 'click', e => {
+					console.log('pano clicked')
+					controls.target = new THREE.Vector3(centerX, -75, centerZ)
+					controls.update()
+					globalControls = controls
+				})
+				domEvents.addEventListener(pano, 'touchstart', e => {
+					console.log('pano clicked')
+					controls.target = new THREE.Vector3(centerX, -75, centerZ)
+					controls.update()
+					globalControls = controls
+				})
+
+				// cloth material
+
+				var clothTexture = loader.load( 'textures/pink.png' );
+				clothTexture.anisotropy = 16;
+
+				var clothMaterial = new THREE.MeshLambertMaterial( {
+					map: clothTexture,
+					side: THREE.DoubleSide,
+					alphaTest: 0.5
+				} );
+
+				// cloth geometry
+
+				clothGeometry = new THREE.ParametricBufferGeometry( clothFunction, cloth.w, cloth.h );
+
+				// cloth mesh
+
+				object = new THREE.Mesh( clothGeometry, clothMaterial );
+				object.position.set( 0, -50, -255);
+				object.castShadow = true;
+				scene.add( object );
+
+				object.customDepthMaterial = new THREE.MeshDepthMaterial( {
+					depthPacking: THREE.RGBADepthPacking,
+					map: clothTexture,
+					alphaTest: 0.5
+				} );
+
+				// ground
+				var groundGeometry = new THREE.SphereBufferGeometry( 499, 60, 60 );
+				groundGeometry.scale( - 1, 1, 1 );
+				
+				var groundMaterial = new THREE.ShadowMaterial ();
+				groundMaterial.opacity = 1;
+
+				var ground = new THREE.Mesh( groundGeometry, groundMaterial );
+				ground.position.y = 0;
+				ground.receiveShadow = true;
+				ground.castShadow = false;
+				scene.add( ground );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				// var helper = new THREE.CameraHelper( light.shadow.camera );
+				// scene.add( helper );
+
+			}
+
+			//
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				var time = Date.now();
+
+				var windStrength = Math.cos( time / 1000 ) * 10 + 40;
+
+				windForce.set( Math.sin( time / 20000 ), Math.cos( time / 30000 ), Math.sin( time / 1000 ) );
+				windForce.normalize();
+				windForce.multiplyScalar( windStrength );
+
+				simulate( time );
+				render();
+
+			}
+
+			function render() {
+
+				var p = cloth.particles;
+
+				for ( var i = 0, il = p.length; i < il; i ++ ) {
+
+					var v = p[ i ].position;
+
+					clothGeometry.attributes.position.setXYZ( i, v.x, v.y, v.z );
+
+				}
+
+				clothGeometry.attributes.position.needsUpdate = true;
+
+				clothGeometry.computeVertexNormals();
+
+				renderer.render( scene, camera );
+
+			}
+
+			function center() {
+				globalControls.target = new THREE.Vector3(centerX, -75, centerZ)
+				globalControls.update()
+			}
+
+			function play() {
+        		var audio = document.getElementById("audio")
+        		audio.play()
+      		}
+
+		</script>
+	</body>
+</html>

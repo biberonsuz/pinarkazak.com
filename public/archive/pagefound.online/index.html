@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf8">
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<title>Page Found</title>
+	<link rel="icon" href="favicon.png" type="image/png" sizes="16x16">
+	<link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+<html>
+
+<body>
+	<header class="overlay">
+		<ul>
+			<li><a onclick="toggleView('intro'); posterCounter = setInterval(posters,5000)"><span class="desktop">KABK Graphic Design Presents</span><span class="mobile">Home</span></a></li>
+			<li><a onclick="toggleView('main'); clearInterval(posterCounter)">The Book Buffet</a></li>
+			<li><a onclick="toggleView('colophon'); clearInterval(posterCounter)">Colophon</a></li>
+		</ul>
+	</header>
+
+	<div id="content">
+		<div class="view" id="intro">
+			<div class="gallery">
+				<div class="intro-title">Second Year Book Buffet</div>
+				<div class="posterInfo"></div>
+			</div>
+		</div>
+		<div class="view" id="main" style="display: none">
+			<div class="overlay">
+				<h1></h1>
+			</div>
+			<div class="bookInfo overlay"></div>
+		</div>
+		<div class="view" id="colophon" style="display: none">
+			<div class="block">
+				<div class="block-content">
+
+					We present you proudly our 43 books, made with blood, love and many tears (of joy). Although these
+					books have never seen the light because of the COVID19 situation, we hope to entertain you with
+					their presence in the digital world.
+
+				</br>
+			</br>
+			Pasha Radich |
+			Ieva Gailiušaitė |
+			Dahsuel Jung |
+			Daniel Jurkschat |
+			Emir Karyo |
+			Ashger Zamana |
+			Julia Waraksa
+			Thora Thogersen |
+			Aiym Zhaishylyk |
+			Petra Eros |
+			Camila Chebez |
+			Pınar Kazak |
+			Charlotte van Alfen |
+			Jonas Paberzis |
+			Marieke Dijsselhof |
+			Moritz von Laufenberg |
+			Paolo Vigliotti |
+			Binnie Kwon |
+			Jesús Jiménez |
+			Ola Rubik |
+			Yeeun Kim |
+			Ania Pravorotskaya |
+			Lottie Holme |
+			Agnar Freyr Stefánsson |
+			Jan Wojda |
+			Weronika Uyar |
+			Ro Antia |
+			Szymon Hernik |
+			Kirill Noskov |
+			Nerile Ričkutė
+			Robin Wielink |
+			Dawun Chung |
+			Hyeonjeong Joo |
+			Radina Yotova |
+			Lisa Dieterle  |
+			Eunseo Hyun |
+			Paulina Trzeciak |
+			Jules Janssen |
+			Harrison Tyrer |
+			Fleurine Brijker |
+			Marcos Kueh
+
+					<!-- <div class="students-block">
+					                        <div class="students-content">
+							<div class="students-block">
+								Pasha Radich |
+								Ieva Gailiušaitė |
+								Dahsuel Jung |
+								Daniel Jurkschat |
+								Emir Karyo |
+								Ashger Zamana |
+								Julia Waraksa
+								Thora Thogersen |
+								Aiym Zhaishylyk |
+								Petra Eros |
+								Camila Chebez |
+								Pınar Kazak |
+								Charlotte van Alfen |
+								Jonas Paberzis |
+								Marieke Dijsselhof |
+								Moritz von Laufenberg |
+								Paolo Vigliotti |
+								Binnie Kwon |
+								Jesús Jiménez |
+								Ola Rubik |
+								Yeeun Kim |
+								Ania Pravorotskaya |
+								Lottie Holme |
+								Agnar Freyr Stefánsson |
+								Jan Wojda |
+								Weronika Uyar |
+								Ro Antia |
+								Szymon Hernik |
+								Kirill Noskov |
+								Nerile Ričkutė
+								Robin Wielink |
+								Dawun Chung |
+								Hyeonjeong Joo |
+								Radina Yotova |
+								Lisa Dieterle  |
+								Eunseo Hyun |
+								Paulina Trzeciak |
+								Jules Janssen |
+								Harrison Tyrer |
+								Fleurine Brijker |
+								Marcos Kueh
+							</div>
+
+					                        </div>
+					</div> -->
+				</div>
+			</div>
+			<div class="block">
+				<div class="block-content" id="" >
+
+					We were about to meet at Page Not Found
+					<br>Show our books, drink beer and hang around
+					<br>We were ready to blow your mind so excitedly
+					<br>Bring you love with our designs so eagerly
+					<span class="poem" ></span>
+					Suddenly, something unexpected took place
+					<br>We found ourselves completely stuck in space
+					<br>But we still want to show you what we have done
+					<br>So we welcome you to join our virtual home-run
+					<span class="poem"></span>
+					Say hello to our digital book exhibition
+					<br>A library of beautiful books was our ambition
+					<br>pagefound.online presents 42 brand new designs
+					<br>Go through all of the pages! Not only spines!
+					<br>
+                </div>
+			</div>
+			<div class="block block-disclaimer">
+				<div class="block-content block-content-one" id="disclaimer" style="padding-bottom: 0; ">
+
+					Made for educational purposes.
+					<br>All Book Content, Original Authors
+					<br> Typeface 'Standard' by <a href="https://github.com/brycewilner" target="_blank">Bryce Wilner</a>
+					<br>
+					<br>
+					April 2020, the Netherlands
+					<br><a href="https://www.kabk.nl" target="_blank">Royal Academy of Art (KABK)</a>
+					<br> Type class with <a href="https://www.adriaanmellegers.com" target="_blank">Adriaan Mellegers</a>
+				</div>
+				<div class="block-content block-content-two" id="disclaimer" style="padding-top: 0; ">
+
+					<br>
+					Website Design
+					<div class="easter" onclick="easter('krusty', 'white')">Pınar Kazak</div>
+					<div>Julia Waraksa</div>
+					<div class="easter" onclick="easter('george', 'white')">Moritz von Laufenberg</div>
+					<div>Szymon Hernik</div>
+					<div class="easter" onclick="easter('notfound', 'black')">Paulina Trzeciak</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="overlay">
+		<ul class="desktop">
+			<li >
+				Proudly Brought To You By
+			</li>
+			<li>
+				Design Students in Quarantine (Year Two)
+			</li>
+			<li>
+				Royal Academy of Art, The Hague
+			</li>
+
+		</ul>
+		<ul class="mobile">
+			<li >
+				Proudly Brought To You By Design Students in Quarantine (Year Two)
+			</li>
+			<li>
+				Royal Academy of Art, The Hague
+			</li>
+
+		</ul>
+	</footer>
+
+	<div class="popup-overlay" onclick="togglePopup(false)">
+	</div>
+
+	<div class="popup">
+		<div class= "navBar">
+			<div class="specifics">
+			<span class="designer"style="flex-basis: auto;"></span>
+			<span class="title" style="flex-basis: auto;"></span>
+			<span class="author" style="flex-basis: auto;"></span>
+			<span class="publisher" style="flex-basis: auto;"></span>
+			</div>
+		</div>
+
+
+		<div class="spreads">
+			<div class="flip" id="left" onclick="previousPage()"></div>
+			<div class="flip" id="right" onclick="nextPage()"></div>
+		</div>
+
+		<div class= "navBar2">
+		<div class="colophon">
+			<span class="colophon"></span>
+		</div>
+		</div>
+		</div>
+	</div>
+	<div class="overlay counter">
+		<div class="time"></div>
+	</div>
+
+	<script src="threejs/three.js"></script>
+	<script src="threejs/OrbitControls.js"></script>
+	<script src="threejs/threex.domevents.js"></script>
+	<script src="scripts/book.js"></script>
+	<script src="scripts/main.js"></script>
+</body>
+</html>

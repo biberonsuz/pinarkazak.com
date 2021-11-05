@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PINAR KAZAK</title>
+        <meta name="description" content="Graphic Designer based in Istanbul & The Hague.">
+        <meta name="keywords" content="graphic, design, web, development, website, hague, istanbul, pınar, pinar, kazak">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="/icon.png"/>
+        <link href='/webfonts/Suisse-Intl.css' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="/main.css">
+        <meta charset="UTF-8">
+        <style>
+            body, html {
+                overflow-x:hidden;
+            }
+            footer {
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body>
+        <nav id="top">
+            <h><a href="/">PINAR KAZAK</a></h>
+            <span><a href="/tags">WORKS</a></span>
+            <span><a href="about">ABOUT</a></span>
+        </nav>
+        <div class="glow"></div>
+        <div id="background"></div>
+        <main>
+        </main>
+        <footer>
+            &#8595; SCROLL FOR MORE &#8595;
+        </footer>
+    <script>
+        let lastClicked = null
+        let mobile = false
+        const gallery = document.querySelector('#background')
+        const body = document.querySelector('body')
+        const main = document.querySelector('main')
+        
+        function ajax(a,b,c){//url,function,just a placeholder
+            c=new XMLHttpRequest;
+            c.open('GET',a);
+            c.onload=b;
+            c.send()
+        }
+
+        if (window.innerWidth < 700) {
+            mobile = true
+        }
+
+        ajax('/works/database.json', function(){
+            if (this.status === 200) {
+                const database = JSON.parse(this.response)
+                Object.keys(database).forEach(workId => {
+                    let work = document.createElement('div')
+                    work.className ='work'
+                    work.id = workId   
+
+                    let title = document.createElement('div')
+                    title.className = 'title'
+                    title.innerHTML = database[workId].title.toUpperCase() 
+                    work.appendChild(title)
+
+                    let year = document.createElement('div')
+                    year.className = 'year'
+                    if (isNaN(database[workId].year)) {
+                        year.innerHTML = database[workId].year.toUpperCase()
+                    } else {
+                        year.innerHTML = database[workId].year
+                    }
+                    work.appendChild(year)
+ 
+                    main.appendChild(work)
+                    
+                    if (mobile == false) {
+                        work.addEventListener('click', () => {
+                            location.href=`works/${workId}.html`
+                        })
+                        work.addEventListener('mouseover', () => {
+                            gallery.style.backgroundImage = `url(background/${workId}.png)`
+                            if (workId == "colorshow" || workId == "pagefound" || workId == "teargas-archive" || workId == "digital-postcards") {
+                                gallery.style.backgroundSize = `auto 100%`
+                                gallery.style.backgroundPosition = 'center'
+                            } else if (workId == "untitled-mountain" || workId == "experiments" || workId == "guggen-sans" || workId == "shah-sans" || workId == "cumhuriyet-display" || workId == "desert-on-the-sun"){
+                                gallery.style.backgroundSize = '20%, 20%, 20%, 20%, 20%' //`17.8664vh`
+                            } else {
+                                gallery.style.backgroundSize = `20vw`
+                            }
+                        })
+                        work.addEventListener('mouseout', () => {
+                            gallery.style.background = 'none'
+                        })
+                    } else if (mobile == true) {
+                        work.addEventListener('touch', () => {
+                            if (lastClicked == workId) {
+                                location.href=`works/${workId}`
+                            } else {
+                                gallery.style.backgroundImage = `url(background/${workId}.png)`
+                                if (workId == "grotesk") {
+                                    gallery.style.backgroundSize = `auto 100%`
+                                } else {
+                                    gallery.style.backgroundSize = `50vw`
+                                }
+                                lastClicked = workId
+                            }  
+                        })
+                        body.addEventListener('touch', () => {
+                            gallery.style.background = 'none'
+                        })
+                    }
+                })
+            }
+        })
+        
+    </script>
+    </body>
+</html>

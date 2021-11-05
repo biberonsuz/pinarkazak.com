@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>404—PINAR KAZAK</title>
+        <meta name="description" content="404">
+        <meta name="keywords" content="graphic, design, web, development, website, hague, istanbul, pınar, pinar, kazak">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <link rel="icon" href="/icon.png" type="image/png">
+        <link href='/webfonts/Suisse-Intl.css' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="/main.css">
+        <style>
+            ul li {
+                min-width:240px;
+            }
+            ul li:hover {
+                cursor: url("data:image/svg+xml,%3Csvg id='plus' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 128 128'%3E%3Ctitle%3Earrows%3C/title%3E%3Cpath d='M42,91.75V50.12H.32V40H42V.24H52.78V40H94.4V50.12H52.78V91.75Z' fill='%23818999'/%3E%3C/svg%3E"), auto;
+                border-bottom: 0.18vh solid var(--text);
+                color: var(--text)
+            }
+            img {
+                cursor: url("data:image/svg+xml,%3Csvg id='plus' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 128 128'%3E%3Ctitle%3Earrows%3C/title%3E%3Cpath d='M42,91.75V50.12H.32V40H42V.24H52.78V40H94.4V50.12H52.78V91.75Z' fill='%23818999'/%3E%3C/svg%3E"), auto;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <h><a href="/">PINAR KAZAK</a></h>
+            <span><a href="/tags">WORKS</a></span>
+            <span><a href="/about">ABOUT</a></span>
+        </nav>
+        <div class="glow"></div>
+        
+        <main>
+            <li>Page Not Found</li>
+            <li><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"></li>
+            <li><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"></li>
+            <li><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"></li>
+            <li><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"></li>
+            <li><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"></li>
+            <li><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"></li>
+            <li><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"></li>
+            <li><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"><img src="1.jpg"></li>
+        </main>
+        <footer>
+            <span id="title"></span>
+            <span id="desc"></span>
+            <span id="arrow"></span>
+        </footer>
+        <script>
+        let title = document.querySelector('#title')
+        let arr = document.querySelector('#arrow')
+        function mobile() {
+            console.log("mobile!")
+        }
+        if (window.innerWidth < 700) {
+            mobile()
+        }
+        let images = document.querySelectorAll('img')
+        let visible = true
+        Array.from(images).forEach(image => {
+            image.addEventListener('mousedown', () => {
+                image.style.opacity = visible ? '1' : '0'
+                visible = !visible;
+                if (visible == true) {
+                    arr.innerHTML = '<img src="1.jpg">'
+                } else if (visible == false) {
+                    arr.innerHTML = '&#x25A1;'
+                    title.innerHTML = 'Click to change, hover to paint.'
+                }
+            }) 
+            image.addEventListener('mouseover', () => {
+                image.style.opacity = visible ? '1' : '0'
+            }) 
+        })
+        </script>
+    </body>
+</html>

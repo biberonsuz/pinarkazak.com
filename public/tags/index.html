@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PINAR KAZAK—CATEGORIES</title>
+        <meta name="description" content="Graphic Designer based in Istanbul & The Hague.">
+        <meta name="keywords" content="graphic, design, web, development, website, hague, istanbul, pınar, pinar, kazak">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="/icon.png"/>
+        <link href='/webfonts/Suisse-Intl.css' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="/main.css">
+        <meta charset="UTF-8">
+        <style>
+            body, html {
+                overflow-x:hidden;
+            }
+            #background {
+                position:absolute;
+                width: 100vw;
+                height: 89.332vh;
+                top:50%;
+                left:50%;
+                transform: translate(-50%,-50%);
+                z-index:0;
+            }
+        </style>
+    </head>
+    <body>
+        <nav id="top">
+            <h><a href="/">PINAR KAZAK</a></h>
+            <span><a href="/tags">WORKS</a></span>
+            <span><a href="about">ABOUT</a></span>
+        </nav>
+        <div class="glow"></div>
+        <div id="background"></div>
+        <main>
+        </main>
+        <footer>
+            <span id="title">CATEGORIES</span>
+            <span id="tags"></span>
+            <span id="year"></span>
+        </footer>
+    <script>
+        let lastClicked = null
+let mobile = false
+const gallery = document.querySelector('#background')
+const body = document.querySelector('body')
+const main = document.querySelector('main')
+
+function ajax(a,b,c){//url,function,just a placeholder
+    c=new XMLHttpRequest;
+    c.open('GET',a);
+    c.onload=b;
+    c.send()
+}
+
+
+function groupByTags(arr) {
+    let response = {}
+    for(let i of Object.keys(arr)) {
+        for(let j of arr[i].tags) {
+           let tags =[...arr[i].tags]
+                if (response[j]) {
+                    response[j].push({...i , tags: tags})
+                } else {
+                    response[j] = [{...i, tags: tags}]
+                }
+        }
+    }
+    return response
+}
+
+
+if (window.innerWidth < 700) {
+    mobile = true
+}
+
+ajax('/works/database.json', function(){
+    if (this.status === 200) {
+        const database = JSON.parse(this.response)
+        let tags = groupByTags(database)
+        console.log(tags[""])
+        Object.keys(tags).forEach(tag => {
+            let tagId = tag.replace(/\s+/g, '-')
+
+            let work = document.createElement('div')
+            work.className ='work'
+            work.id = tagId
+
+            let title = document.createElement('div')
+            title.className = 'title'
+            title.innerHTML = tag.toUpperCase() 
+            work.appendChild(title)
+
+            let count = document.createElement('div')
+            count.className = 'year'
+            count.innerHTML = tags[tag].length
+            work.appendChild(count)
+
+            main.appendChild(work)
+            
+            // if (mobile == false) {
+                work.addEventListener('click', () => {
+                    location.href=`${tagId}.html`
+                })
+                /* work.addEventListener('mouseover', () => {
+                    gallery.style.backgroundImage = `url(background/${tagId}.png)`
+                    if (tagId == "colorshow" || tagId == "pagefound" || tagId == "teargas-archive") {
+                        gallery.style.backgroundSize = `auto 100%`
+                        gallery.style.backgroundPosition = 'center'
+                        console.log(tagId);
+                    } else if (tagId == "untitled-mountain" || tagId == "experiments" || tagId == "guggen-sans" || tagId == "shah-sans" || tagId == "cumhuriyet-display"){
+                        gallery.style.backgroundSize = `17.8664vh`
+                    } else {
+                        gallery.style.backgroundSize = `20vw`
+                    }
+                })
+                work.addEventListener('mouseout', () => {
+                    gallery.style.background = 'none'
+                })
+            } else if (mobile == true) {
+                work.addEventListener('touch', () => {
+                    if (lastClicked == tagId) {
+                        location.href=`works/${tagId}`
+                    } else {
+                        gallery.style.backgroundImage = `url(background/${tagId}.png)`
+                        if (tagId == "grotesk") {
+                            gallery.style.backgroundSize = `auto 100%`
+                            console.log(tagId);
+                        } else {
+                            gallery.style.backgroundSize = `50vw`
+                        }
+                        lastClicked = workId
+                    }  
+                })
+                body.addEventListener('touch', () => {
+                    gallery.style.background = 'none'
+                })
+            } */
+        })
+    }
+})
+    </script>
+    </body>
+</html>

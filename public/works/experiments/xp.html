@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <style>
+        * {
+            padding:0;
+            margin:0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
+    <script>
+
+var img;
+
+var x;
+
+var a;
+
+var b;
+
+var c;
+
+function setup() {
+    initializeFields();
+    // fullScreen();
+    createCanvas(1600, 1200);
+    // background(192,192,192);
+    background(0, 0, 255);
+    img = loadImage("xp.png");
+    x = 1;
+}
+
+function keyPressed() {
+    if (keyCode == UP_ARROW) {
+        x = x + 0.1;
+    } else if (keyCode == DOWN_ARROW) {
+        x = x - 0.1;
+    } else if (keyCode == ENTER) {
+        saveFrame("##.jpg");
+    }
+}
+
+function draw() {
+    if (keyIsPressed && (key == 'r')) {
+        tint(255, 0, 0);
+    } else if (keyIsPressed && (key == 'g')) {
+        tint(0, 255, 0);
+    } else if (keyIsPressed && (key == 'b')) {
+        tint(0, 0, 255);
+    } else if (keyIsPressed && (key == 'w')) {
+        tint(255, 255, 255);
+    } else if (keyIsPressed && (key == '*')) {
+        var a = map(mouseX, 0, 1200, 0, 255);
+        var b = map(mouseY, 0, 900, 0, 255);
+        tint(random(0, 255), b, a);
+    } else if (keyIsPressed && (key == '1')) {
+        img = loadImage("xp.png");
+    } else if (keyIsPressed && (key == '2')) {
+        img = loadImage("8.png");
+    } else if (keyIsPressed && (key == '3')) {
+        img = loadImage("10.png");
+    } else if (keyIsPressed && (key == '4')) {
+        img = loadImage("vist.png");
+    }
+    scale(x);
+    image(img, mouseX, mouseY);
+// err.resize(x,0);
+}
+
+function initializeFields() {
+    img = null;
+    x = 0;
+    a = 0;
+    b = 0;
+    c = 0;
+}
+    </script>
+  </head>
+  <body>
+    <main>
+    </main>
+  </body>
+</html>

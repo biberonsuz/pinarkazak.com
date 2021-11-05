@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	  <title>garbag,e island</title>
+    <link rel="shortcut icon" href="icon/garbageicon.png"/>
+    <meta charset ="UTF-8">
+	  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+    .punctuation:hover {
+      cursor: pointer;
+      color:#9A7E00;
+    }
+    </style>
+  </head>
+<body>
+  <div class="title">garbag,e island</div> 
+  <div class="comma">,<br><br><br><br><br><br></div>     
+  <div class="commas punctuation">,,,  ,<br>  , ,,  ,,,     ,     ,<br><br>,,<br><br><br></div>
+  <script>
+    const body = document.querySelector('body')
+    const audio = new Audio('ocean.mp3')
+    const comma = document.querySelector('.comma')
+    const commas = document.querySelector('.commas')
+    let glyphs = ['*','.', ';',';', '-','_']
+
+
+    comma.addEventListener('click', () => {
+      audio.play()
+      comma.style.opacity = '0'
+      setTimeout(function(){
+        comma.remove()
+      }, 2500);
+    })
+    commas.addEventListener('click', () => {
+      commas.style.opacity = '0'
+      setTimeout(function(){
+        commas.remove()
+      }, 2500);
+    })
+    function generateCommas(n, punctuation) {
+      console.log(n, punctuation)
+      for (i = 0; i < n; i++) {
+        let p = document.createElement('div')
+        p.className = 'punctuation'
+        if (n !== 1) {
+          p.innerHTML = ','
+        } else {
+          p.innerHTML = punctuation
+        }
+        p.style.position = 'absolute'
+        p.style.left = Math.random()*100 + '%'
+        p.style.top = Math.random()*100 + '%'
+        body.appendChild(p)
+
+        p.addEventListener('click', () => {
+          p.style.opacity = '0'
+          setTimeout(function(){
+            p.remove()
+          }, 2500);
+        })
+      }
+    }
+    setInterval(function(){
+      generateCommas(Math.floor(Math.random()*4), glyphs[Math.floor(Math.random()*glyphs.length)])
+    },1000)
+
+  </script>
+</body>
+</html>

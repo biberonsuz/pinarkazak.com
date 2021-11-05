@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gateway to EU - Turkey</title>
+	<meta charset="UTF-8">
+<style>
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	font-family:Helvetica Neue, sans-serif;
+	font-size:2vh;
+	height:100vh;
+	overflow:hidden;
+	background-image: url('1x/terrainb.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+h1 {
+	font-size:6vh;
+	font-weight: normal;
+	width:100%;
+	z-index:50;
+	color:yellow;
+	text-align: center;
+}
+.timeline {
+	display:block;
+	z-index:50;
+	font-size:12px;
+	position:absolute;
+	width:100vw;
+	bottom:0;
+	background-color:black;
+}
+.years {
+	display:flex;
+	justify-content: space-between;
+	padding:0 23vw;
+}
+.years .year {
+	justify-content: center;
+	color:white;
+	padding: 0 calc(0.2vw + 8px);
+	display:inline-flex;
+	text-align: center;
+}
+.lines {
+	position: relative;
+	color: white;
+	top:0;
+	display:flex;
+	padding:0 25vw;
+	text-align:center;
+	justify-content: center;
+	margin:auto;
+}
+.lines .macro {
+	display:inline-flex;
+	text-align: center;
+	margin:0 auto;
+	top: 0;
+}
+.micro {
+	display:inline-flex;
+	font-size: 8px;
+	top:0;
+	margin:0 0.2vw;
+}
+.title {
+	display:none;
+	padding:1vh 1vw 0 1vw;
+	text-align: center;
+	height:18vh;
+	z-index:50;
+}
+.main {
+	width:100%;
+	height:70vh;
+}
+.map {
+	position:relative;
+	float:left;
+	height:70vh;
+	width:90vw;
+	left: 50%;
+    top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+.border {
+	position: relative;
+	height:70vh;
+	margin:auto;
+	bottom:0;
+	left:50%;
+	transform: translate(-60%, 0)
+}
+.text {
+	bottom: 25px;
+	color: white;
+	position:absolute;
+	width: 25vw;
+	line-height:3vh;
+	padding:1vh 1vw;
+}
+.rDot {
+	position:absolute;
+	font-size:10px;
+	padding:0;
+	margin:0;
+	color: red;
+	border: 1px black;
+	line-height:0.5vh;
+}
+.bDot {
+	position:absolute;
+	font-size:10px;
+	color: blue;
+	border: 1px black;
+	line-height:0.5vh;
+}
+.yDot {
+	position:absolute;
+	font-size:10px;
+	color:rgba(255,255,0,0.25);
+	border: 1px black;
+	line-height:0.5vh;
+}
+.yDot:hover, .bDot:hover, .rDot:hover {
+	cursor:pointer;
+}
+.label {
+	display:none;
+	position:absolute;
+	font-size: 4vh;
+	color:rgba(255,255,0,0.5);
+}
+#greece {
+	top:45%;
+	left:25%;
+	transform:translate(-50%,100%)
+}
+#turkey {
+	top:45%;
+	right:25%;
+	transform:translate(50%,100%)
+}
+.box {
+	position:absolute;
+	display:none;
+	height:auto;
+	width:auto;
+	background-color:black;
+	color:black;
+	z-index:100;
+	font-size:15px;
+	padding:5px;
+}
+.story-overlay {
+	position:absolute;
+	display:flex;
+	top:0;
+	width: 100vw;
+	height: 300vh;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	background-color:rgba(0,0,0,0.50);
+	color:white;
+	z-index:100;
+	scroll-snap-type: y mandatory;
+}
+section {
+	scroll-snap-align: start;
+	position: absolute;
+	left:0;
+	display:block;
+	width:100%;
+	height:100%;
+}
+p {
+	left:0;
+	height:30vh;
+	margin:37vh 5vw 15vh;
+}
+a {
+	color:yellow;
+}
+a:hover {
+	color:red;
+}
+#one p{
+	margin:calc(37vh - 35px) 5vw 15vh;
+}
+#two{
+	top:100vh;
+}
+.go {
+	text-align:center;
+	padding:25px;
+	bottom:0;
+	color:yellow;
+	cursor:pointer;
+	animation: blink-full 3s infinite;
+}
+.go:hover {
+	color:red;
+}
+#first {
+	position:fixed;
+	padding:1vh 1vw 0 1vw;
+	width:98vw;
+}
+.scroll {
+	text-align: center;
+	width:100vw;
+	padding:0.2vh 0;
+	animation: blink 3s infinite;
+}
+@keyframes blink {
+  0%   {opacity:0;}
+  50%  {opacity:0.5;}
+  100%  {opacity:0;}
+}
+@keyframes blink-full {
+  0%   {opacity:0;}
+  50%  {opacity:1;}
+  100%  {opacity:0;}
+}
+@keyframes blink-opposite {
+  0%   {opacity:1;}
+  50%  {opacity:0;}
+  100%  {opacity:1;}
+}
+@keyframes text {
+	0%   {opacity:0;}
+	10%  {opacity:1;}
+	90%  {opacity:1;}
+	100%  {opacity:0;}
+}
+@keyframes fadein {
+	0% {opacity:0;}
+	100% {opacity: 1;}
+}
+
+.hover {
+	padding:25px;
+	color:white;
+}
+
+</style>
+</head>
+<body>
+<div class="title">
+	<h1>Turkey: Gateway to Europe</h1>
+	<h1><span class ="year"></span> Situation</h1>
+	<div class="hover"> Visuals explaining the <a href="http://www.europarl.europa.eu/legislative-train/theme-towards-a-new-policy-on-migration/file-eu-turkey-statement-action-plan" target="_blank">agreement</a>. Hover € for details.</div>
+</div>
+<div class="story-overlay">
+	<section id="one">
+		<h1 id="first">Turkey: Gateway to Europe</h1>
+		<p>
+		Following the <a href="https://syriancivilwarmap.com/" target="_blank">Syrian Civil War</a>, 
+		and the Syrian refugee crisis, the refugees would follow different routes, from the land and the sea, in order to reach the EU which followed an open door policy. </br>
+		</br>
+		The main land route would pass through Turkey as it neighbours both Syria and the Schengen State 
+		Greece as well as EU member Bulgaria. In this way, Turkey would serve as a gateway to Europe for 
+		refugees originating in Syria.
+		</p>
+		<div class="scroll">Scroll to continue.
+			<div class="arrow">↓</div>
+		</div>
+	</section>
+	<section id="two">
+		<p>
+		In 2015, the EU parliament put forward an <a href="http://www.europarl.europa.eu/legislative-train/theme-towards-a-new-policy-on-migration/file-eu-turkey-statement-action-plan" target="_blank">
+		agreement</a> to Turkey, in order to prevent irregular migration flow. The following visuals explain 
+		the situation of the Turkey and Greece border in respect to the agreement.
+		</p>
+		<div class="go" onclick="start()">Go to Map
+			<div class="arrow">↓</div>
+		</div>
+	</section>
+</div>
+<div class="box"></div>
+<div class="main">
+	<div class="map">
+		<div id="greece" class="label">GREECE</div>
+		<div id="turkey" class="label">TURKEY</div>
+	</div>
+</div>
+<div class="timeline">
+	<div class="lines"></div>
+	<div class="years"></div>
+</div>
+<script>
+	let posx, posy, x, y
+	let i = 0
+	let tur = []
+	let eur = []
+	let years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+	const border = document.createElement("img")
+	const body = document.querySelector("body")
+	const lines = document.querySelector('.lines').children
+	const box = document.querySelector('.box')
+	const yearsDiv = document.querySelector('.years')
+	let left = document.createElement('div')
+	left.className = "text"
+	left.style.left = "0"
+	let right = document.createElement('div')
+	right.className = "text"
+	right.style.textAlign = "right"
+	right.style.right = "0"
+
+	const canvas = document.querySelector(".map")
+	canvas.style.fontSize = "8px"
+	canvas.style.lineHeight = "12px"
+	let amount
+
+	function timeline() {
+		let timeline = document.querySelector(".timeline") 
+		let lines = document.querySelector(".lines") 
+		let macro = document.createElement("div")
+		macro.className = "macro"
+		macro.innerHTML = "|"
+		lines.appendChild(macro)
+
+		for (i = 0; i < years.length; i++) {
+			let year = document.createElement("div")
+			year.className = "year"
+			year.id = "y"+years[i]
+			year.innerHTML = years[i]
+			yearsDiv.appendChild(year)
+		}
+
+		for (i = 0; i < years.length - 1; i++) {
+			let microContainer = document.createElement("div")
+			microContainer.className = "macro"
+			lines.appendChild(microContainer)
+
+			let macro = document.createElement("div")
+			macro.className = "macro"
+			macro.innerHTML = "|"
+			lines.appendChild(macro)	
+
+			for (m = 0; m < 11; m++) {
+				let micro = document.createElement("div")
+				micro.className = "micro"
+				micro.innerHTML = "|"
+				microContainer.appendChild(micro)	
+			}	
+		}
+
+	}
+	
+	function y2012(){
+		document.querySelector(".year").innerHTML = "2012"
+		document.querySelector('#y2013').style.color = 'red'
+
+		border.src = "1x/dashed-borderg.png"
+		border.className = "border"
+		canvas.appendChild(border)
+
+		for (i = 0; i < 198; i++) { 
+			posx = 25 + (Math.random()*Math.cos(1.65)*0.71)
+			posy = 50 + (Math.random()*Math.sin(1.65)*0.71)
+
+			let rDot = document.createElement("span")
+			rDot.className ="rDot"
+			rDot.style.right = posx +"%"
+			rDot.style.bottom = posy + "%"
+			rDot.innerHTML = "€"
+			tur.push(rDot)
+			canvas.appendChild(rDot)
+			rDot.addEventListener("mouseenter", showBoxRed)
+			rDot.addEventListener("mouseout", hideBox)
+		}
+		amount = tur.length*1004580
+		setTimeout(y2013,1000)
+	}
+
+	function y2013(){
+		document.querySelector(".year").innerHTML = "2013"
+		document.querySelector('#y2013').style.color = 'red'
+		left.innerHTML = 'Following the start of the <a href="https://syriancivilwarmap.com/" target="_blank">Syrian Civil War</a> in 2011, many Syrian citizens have fled their country, resulting in what is generally known as the <a href="https://www.unrefugees.org/news/syria-refugee-crisis-explained/" target="_blank">Syrian Refugee Crisis</a>. Following this, some EU countries, mainly Germany decided to follow an “open-door” policy. In order to reach the EU, the refugees would follow different routes, from the land and the sea.'
+		left.style.animation = "text 12.1s normal"
+		body.appendChild(left)
+		time(0)
+
+		let tur2013 = setInterval(function () {
+			for (i = 0; i < 9; i++) { 
+				posx = 25 + (Math.random()*Math.cos(i)*4.59)
+				posy = 50 + (Math.random()*Math.sin(i)*4.59)
+				let rDot = document.createElement("span")
+				rDot.className ="rDot"
+				rDot.style.right = posx +"%"
+				rDot.style.bottom = posy + "%"
+				rDot.innerHTML = "€"
+				tur.push(rDot)
+				amount = tur.length*995205
+				canvas.appendChild(rDot)
+				rDot.addEventListener("mouseenter", showBoxRed)
+				rDot.addEventListener("mouseout", hideBox)
+			}
+		}, 100)
+		setTimeout(function(){
+			console.log(tur.length)
+			clearInterval(tur2013)
+			y2014()
+			left.remove()
+		},12050)
+	}
+	function y2014(){
+		document.querySelector(".year").innerHTML = "2014"
+		document.querySelector('#y2014').style.color = 'red'
+		right.innerHTML='As a gateway to Europe for the refugees originating in Syria, the refugees would be considered as <a href="https://www.brookings.edu/wp-content/uploads/2016/06/Syrian-Refugees-and-Turkeys-Challenges-May-14-2014.pdf" target="_blank">guests</a> by the Turkish people, as they were not expected to stay.'
+		right.style.animation = "text 12.05s normal"
+		body.appendChild(right)
+		time(2)
+
+		let tur2014 = setInterval(function () {
+			for (i = 0; i < 16; i++) { 
+				posx = 25 + (Math.random()*Math.cos(i)*11.70)
+				posy = 50 + (Math.random()*Math.sin(i)*11.70)
+
+				let rDot = document.createElement("span")
+				rDot.className ="rDot"
+				rDot.style.right = posx +"%"
+				rDot.style.bottom = posy + "%"
+				rDot.innerHTML = "€"
+				tur.push(rDot)
+				amount = tur.length*1274998
+				canvas.appendChild(rDot)
+				rDot.addEventListener("mouseenter", showBoxRed)
+				rDot.addEventListener("mouseout", hideBox)
+			}
+		}, 100)
+		setTimeout(function(){
+			console.log(tur.length)
+			clearInterval(tur2014)
+			right.remove()
+			y2015()
+		}, 12050)
+	}
+
+	function y2015(){
+		document.querySelector(".year").innerHTML = "2015"
+		document.querySelector('#y2015').style.color = 'red'
+		border.style.animation = "blink-opposite 2s infinite"
+		left.innerHTML = "The agreement between the EU and Turkey, announced in 2015, stated that illegal migrants were to be returned to Turkey, and the Greece - Turkey land border would be closed. In turn, Turkey would receive 6billion€, in payments of two. This amount would cover the spendings the Turkish Government had made for the refugees so far."
+		left.style.animation = "text 24.10s normal"
+		body.appendChild(left)
+		time(4)
+
+		for (i = 0; i < 6000; i++) { 
+			let c = Math.random()
+			posx = 25 + (Math.random()*Math.cos(i)*20.14)
+			posy = 50 + (Math.random()*Math.sin(i)*20.14)
+			let yDot = document.createElement("span")
+			yDot.className ="yDot"
+			yDot.style.left = posx +"%"
+			yDot.style.bottom = posy + "%"
+			yDot.innerHTML = "€"
+			canvas.appendChild(yDot)
+			yDot.addEventListener("mouseenter", showBoxYellow)
+			yDot.addEventListener("mouseout", hideBox)
+		}
+		let tur2015 = setInterval(function () {
+			for (i = 0; i < 19; i++) {
+			 	posx = 25 + (Math.random()*Math.cos(i)*20.14)
+				posy = 50 + (Math.random()*Math.sin(i)*20.14)
+
+				let rDot = document.createElement("span")
+				rDot.className ="rDot"
+				rDot.style.right = posx +"%"
+				rDot.style.bottom = posy + "%"
+				rDot.innerHTML = "€"
+				tur.push(rDot)
+				amount = tur.length*1426370
+				canvas.appendChild(rDot)
+				rDot.addEventListener("mouseenter", showBoxRed)
+				rDot.addEventListener("mouseout", hideBox)
+			}
+		}, 100)
+		setTimeout(function(){
+			console.log(tur.length)
+			clearInterval(tur2015)
+			y2016()
+		}, 12050)
+	}
+	function y2016(){
+		document.querySelector(".year").innerHTML = "2016"
+		document.querySelector('#y2016').style.color = 'red'
+		time(6)
+		border.src = "1x/borderg.png"
+		border.style.animation = "none"
+		
+		right.innerHTML = "In 2016, both sides agreed to the agreement and it was put into place at the end of <a href='https://www.consilium.europa.eu/en/press/press-releases/2016/03/18/eu-turkey-statement/'' target='_blank'>March, 2016</a>. The refugees were no longer considered guests."
+		right.style.animation = "text 12.05s normal"
+		body.appendChild(right)
+
+		let turEur2016 = setInterval(function () {
+			for (i = 0; i < 21; i++) {
+			 	posx = 25 + (Math.random()*Math.cos(i)*29.18)
+				posy = 50 + (Math.random()*Math.sin(i)*29.18)
+
+				let rDot = document.createElement("span")
+				rDot.className ="rDot"
+				rDot.style.right = posx +"%"
+				rDot.style.bottom = posy + "%"
+				rDot.innerHTML = "€"
+				tur.push(rDot)
+				amount = tur.length*1490522
+				canvas.appendChild(rDot)
+				rDot.addEventListener("mouseenter", showBoxRed)
+				rDot.addEventListener("mouseout", hideBox)
+			}
+			for (i = 0; i < 25; i++) {
+				posx = 25 + (Math.random()*Math.cos(i)*10.07)
+				posy = 50 + (Math.random()*Math.sin(i)*10.07)
+
+				let bDot = document.createElement("span")
+				bDot.className ="bDot"
+				bDot.style.left = posx +"%"
+				bDot.style.bottom = posy + "%"
+				bDot.innerHTML = "€"
+				eur.push(bDot)
+				canvas.appendChild(bDot)
+				bDot.addEventListener("mouseenter", showBoxBlue)
+				bDot.addEventListener("mouseout", hideBox)
+			}
+		}, 100)
+		setTimeout(function(){
+			console.log(tur.length)
+			clearInterval(turEur2016)
+			right.remove()
+			left.remove()
+			y2017()
+		}, 12050)
+	}
+	function y2017(){
+		document.querySelector(".year").innerHTML = "2017"
+		document.querySelector('#y2017').style.color = 'red'
+
+		time(8)
+
+		let tur2017 = setInterval(function () {
+			for (i = 0; i < 83; i++) {
+			 	posx = 25 + (Math.random()*Math.cos(i)*64.99)
+				posy = 50 + (Math.random()*Math.sin(i)*64.99)
+
+				let rDot = document.createElement("span")
+				rDot.className ="rDot"
+				rDot.style.right = posx +"%"
+				rDot.style.bottom = posy + "%"
+				rDot.innerHTML = "€"
+				tur.push(rDot)
+				amount = tur.length*1663850
+				canvas.appendChild(rDot)
+				rDot.addEventListener("mouseenter", showBoxRed)
+				rDot.addEventListener("mouseout", hideBox)
+			}
+		}, 100)
+		setTimeout(function(){
+			console.log(tur.length)
+			clearInterval(tur2017)
+			y2018()
+		}, 12050)
+	}
+	function y2018(){
+		document.querySelector(".year").innerHTML = "2018"
+		document.querySelector('#y2018').style.color = 'red'
+		time(10)
+
+		let tur2018 = setInterval(function () {
+			for (i = 0; i < 81; i++) {
+			 	posx = 25 + (Math.random()*Math.cos(i)*100)
+				posy = 50 + (Math.random()*Math.sin(i)*100)
+
+				let rDot = document.createElement("span")
+				rDot.className ="rDot"
+				rDot.style.right = posx +"%"
+				rDot.style.bottom = posy + "%"
+				rDot.innerHTML = "€"
+				tur.push(rDot)
+				amount = tur.length*1739395
+				canvas.appendChild(rDot)
+				rDot.addEventListener("mouseenter", showBoxRed)
+				rDot.addEventListener("mouseout", hideBox)
+			}
+		}, 100)
+		setTimeout(function(){
+			console.log(tur.length)
+			clearInterval(tur2018)
+			y2019()
+		}, 12050)
+	}
+	function y2019(){
+		document.querySelector(".year").innerHTML = "2019"
+		document.querySelector('#y2019').style.color = 'red'
+		left.innerHTML = "In 2019, Turkish President Erdoğan gave a <a href='https://www.theguardian.com/world/2019/sep/05/erdogan-ill-let-syrian-refugees-leave-turkey-for-west-unless-safe-zone-set-up' target='_blank'>speech</a> saying that the second payment of 3billion€ from the EU was not paid, and threatened to send the refugees through the Turkish border. After further negotiations, the two sides never reached an agreement."
+		left.style.animation = "text 12.05s normal"
+		body.appendChild(left)
+		time(12)
+
+		let yDots = document.querySelectorAll(".yDot")
+		Array.from(yDots).forEach(function(yDot) {
+  			yDot.remove()
+		})
+
+		let tur2019 = setInterval(function () {
+			for (i = 0; i < 110; i++) {
+			 	posx = 25 + (Math.random()*Math.cos(i)*100)
+				posy = 50 + (Math.random()*Math.sin(i)*100)
+
+				let rDot = document.createElement("span")
+				rDot.className ="rDot"
+				rDot.style.right = posx +"%"
+				rDot.style.bottom = posy + "%"
+				rDot.innerHTML = "€"
+				tur.push(rDot)
+				amount=tur.length*1825181
+				canvas.appendChild(rDot)
+				rDot.addEventListener("mouseenter", showBoxRed)
+				rDot.addEventListener("mouseout", hideBox)
+			}
+		}, 100)
+		setTimeout(function(){
+			console.log(tur.length)
+			clearInterval(tur2019)
+			lines[14].style.color = "red"
+			document.querySelector('#y2020').style.color = 'red'
+			document.querySelector(".year").innerHTML = "2020"
+			left.remove()
+			right.innerHTML = "Now in 2020, the Turkish Government has spent over <a href='https://www.tccb.gov.tr/en/news/542/113991/-turkey-ranks-first-globally-in-terms-of-humanitarian-aid-ratio-to-national-income-'> 40billion€</a> for <a href='https://data2.unhcr.org/en/situations/syria/location/113' target='_blank'> 3,643,700</a> registered refugees. Hosting more than 60% of the <a href='https://www.therefugeeproject.org/#/2018/SYR' target='_blank'>refugees originating from Syria</a>."
+			right.style.animation = "fadein 1.205s normal"
+			right.style.textAlign = "center"
+			right.style.top = "63%"
+			right.style.left = "50%"
+			right.style.transform = "translate(-50%,-50%)"
+			body.appendChild(right)
+		}, 12050)
+	}
+
+	function showBoxRed() {
+		x=event.clientX;
+		y=event.clientY;
+		box.style.display = "block"
+        box.style.left = x + 5 + "px"
+		box.style.top = y + 5 + "px"
+		box.style.backgroundColor = "red"
+		box.style.color = "white"
+		box.innerHTML = "Amount spent by Turkey on the refugees: " + formatNumber(amount) +"€"
+	}
+	function showBoxYellow() {
+		x=event.clientX;
+		y=event.clientY;
+		box.style.display = "block"
+        box.style.left = x + 5 + "px"
+		box.style.top = y + 5 + "px"
+		box.style.backgroundColor = "yellow"
+		box.style.color = "black"
+		box.innerHTML = "Amount agreed to be spent on the refugees by the EU: " + formatNumber(6000000000) +"€"
+	}
+	function showBoxBlue() {
+		x=event.clientX;
+		y=event.clientY;
+		box.style.display = "block"
+        box.style.left = x + 5 + "px"
+		box.style.top = y + 5 + "px"
+		box.style.backgroundColor = "blue"
+		box.style.color = "white"
+		box.innerHTML = "Amount spent by the EU on the refugees: " + formatNumber(eur.length*1000000)+"€"
+	}
+	function hideBox() {
+		box.style.display = "none"
+	}
+
+	function time(t) {
+		lines[t].style.color = "red"
+		Array.from(lines[t+1].children).forEach((child, i) => {
+			setTimeout(() => {
+    			child.style.color = "red"
+ 		 	}, (i+1) * 1000);
+    	})
+	}
+	function start() {
+		document.querySelector('.story-overlay').style.display = "none"
+		document.querySelector('.title').style.display = "block"
+		let labels = document.querySelectorAll('.label')
+		Array.from(labels).forEach(function(label) {
+  			label.style.display = "block"
+		})
+		y2012()
+	}
+	function formatNumber(num) {
+  		return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+	}
+	timeline()
+	
+</script>
+</body>
+</html>
+
