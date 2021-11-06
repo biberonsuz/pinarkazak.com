@@ -15,7 +15,3 @@ app.get("/", function (req, res) {})
 // start the server listening for requests
 app.listen(process.env.PORT || 80, 
 	() => console.log("Server is running..."));
-
-
-
-
