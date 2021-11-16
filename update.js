@@ -62,7 +62,7 @@ fs.readFile(databasePath, (err, data) => {
                 }      
                 fileData['---footer year---'] = year     
                 
-                fileData['---description---'] = ''  
+                fileData['---description---'] = database[projectId].description
 
                 fs.readdir(worksPath + 'img/', (err, folders) => {
                     //if there is no img directory, make img directory for project

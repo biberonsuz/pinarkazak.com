@@ -21,27 +21,29 @@
         "title":"The #Teargas Archive",
         "tags": ["web design", "archiving"],
         "year": 2021,
-        "description": "",
+        "description": "The #teargas Archive is an online research project looking into the use of social media, for news reporting in the information age. The research process looked into the concept of 'artificial clouds', both in terms of cloud storage, and in terms of cloud forms; smoke, explosion, teargas. At the intersection was digital reports of events representing tragedies and violence. <br><br>The work explores our relation to these two understandings of artificial clouds, focusing on 'teargas' and 'online archive', specifically Instagram and Twitter archives. The web app includes periodic scrapings from the Twitter and Instagram Search API's, with the keyword '#teargas'. The client side of the app is the result of these scrapings, which is a proposition for a postmodern way of news reporting, dependant on individual right to digital communication and online archiving, on the topic #teargas.",
         "links": {
-            "": ""
+            "The #teargas Archive": "http://teargas.herokuapp.com/main.html",
+            "The Research Document": "https://cypress-consonant-d19.notion.site/GEO-CODE-MODE-f715bd087dc443259f3028d00de57fc8",
+            "Github": "https://github.com/roantia/clouds"
         }
     },
     "grotesk": {
         "title":"Grotesk",
         "tags": ["web design", "fashion design", "letter design"],
         "year": 2020,
-        "description": "",
+        "description": "GROTESK is a fashion collection developed in collaboration with <a href='https://www.instagram.com/thetoughtimes/' target='_blank'>Weronika Uyar</a>.<br> Computer generated patterns, constructed from geometric letters, typographically inspired. Incorporating colour as a dynamic aspect in pattern making, the GROTESK collection encapsulates hundreds of patterns, ready to be made into a collection in the future.",
         "links": {
-            "": ""
+            "Fabric showcase": "https://grtsk.herokuapp.com/"
         }
     },
     "untitled-mountain": {
         "title":"Untitled Mountain",
         "tags": ["web design", "installation design"],
         "year": 2020,
-        "description": "",
+        "description": "Untitled Mountain is a digital installation that started out as a physical one. It evolved into a spatial experience on web, in order to be accessible to everyone, and became a synthesis of the two media. Part of <a href='/works/colorshow'>The Color Show</a> exhibition.",
         "links": {
-            "": ""
+            "Untitled Mountain Online Installation": "https://untitled-mountain.herokuapp.com/"
         }
     },
     "future-market": {
@@ -53,11 +55,20 @@
             "": ""
         }
     },
+    "stuck-figures": {
+        "title":"Stuck Figures Series",
+        "tags": ["installation design", "painting", "drawing", "print making", "product design"],
+        "year": 2020,
+        "description": "Stuck Figures are a style of drawing inspired from the feeling of feeling stuck. First developed as drawings of stick figures stuck between text, they later developed into RISO prints, ink stamps, and later an installation. Specifically the installation plays with the idea of color and opacity, and speaks of the uneasy feeling of feeling stuck in an abundance of space. This idea was later explored again using the painting medium, playing more with the idea of space, as opposed to the idea of opacity. It was also later developed into a tote bag, going back to the idea of transparency, and later developed into transparent and colourful coasters. ",
+        "links": {
+            "": ""
+        }
+    },
     "empires": {
         "title":"Empires",
         "tags": ["video work", "performance", "game design"],
         "year": 2020,
-        "description": "",
+        "description": ["",""],
         "links": {
             "": ""
         }
@@ -66,9 +77,10 @@
         "title":"KABK Open Day",
         "tags": ["web design", "identity design", "design tools design"],
         "year": 2021,
-        "description": "",
+        "description": "The visual identity was comissioned by the Graphic Design Department of the KABK, for their Open Day in 2021. The visual identity was a collaboration with <a href='https://www.instagram.com/thetoughtimes/' target='_blank'>Weronika Uyar</a>, and <a href='https://www.instagram.com/p4olov/'' target='_blank'>Paolo Vigliotti</a>. As the information and details for the identity were not available at the time of designing, the identity was designed and translated into a browser tool to create content for instagram posts and stories by the client at a later time.",
         "links": {
-            "": ""
+            "KABK Graphic Design Instagram Account": "https://www.instagram.com/kabkdesign/",
+            "Online Tool": "https://kabk-design-open-day-2021.herokuapp.com/"
         }
     },
     "guggen-sans": {

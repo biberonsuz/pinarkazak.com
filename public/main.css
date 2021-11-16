@@ -175,12 +175,12 @@ footer a {
     margin-left:1vh;
 }
 #gallery>div:last-child {
-    margin-left:0;
     margin-right:1vh;
 }
 #gallery img {
     position:relative;  
     cursor: url("cursors/arrow-right.svg"), auto;
+    object-fit: contain;
 }
 .single img {
     height:calc(100% - 1.4vh);
@@ -192,7 +192,9 @@ footer a {
 }
 .double img {
     height: calc(50% - 3.5vh);
-    margin-bottom: 0.5vh;
+}
+.double img:first-child {
+    margin-bottom: 2vh;
 }
 .nine {
     display:flex;
