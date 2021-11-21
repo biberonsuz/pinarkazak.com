@@ -28,13 +28,13 @@
             "Github": "https://github.com/roantia/clouds"
         }
     },
-    "grotesk": {
-        "title":"Grotesk",
-        "tags": ["web design", "fashion design", "letter design"],
+    "stuck-figures": {
+        "title":"Stuck Figures Series",
+        "tags": ["installation design", "painting", "drawing", "print making", "product design"],
         "year": 2020,
-        "description": "GROTESK is a fashion collection developed in collaboration with <a href='https://www.instagram.com/thetoughtimes/' target='_blank'>Weronika Uyar</a>.<br> Computer generated patterns, constructed from geometric letters, typographically inspired. Incorporating colour as a dynamic aspect in pattern making, the GROTESK collection encapsulates hundreds of patterns, ready to be made into a collection in the future.",
+        "description": "Stuck Figures are a style of drawing inspired from the feeling of feeling stuck. First developed as drawings of stick figures stuck between text, they later developed into RISO prints, ink stamps, and later an installation. Specifically the installation plays with the idea of color and opacity, and speaks of the uneasy feeling of feeling stuck in an abundance of space. This idea was later explored again using the painting medium, playing more with the idea of space, as opposed to the idea of opacity. It was also later developed into a tote bag, going back to the idea of transparency, and later developed into transparent and colourful coasters. ",
         "links": {
-            "Fabric showcase": "https://grtsk.herokuapp.com/"
+            "": ""
         }
     },
     "untitled-mountain": {
@@ -46,20 +46,30 @@
             "Untitled Mountain Online Installation": "https://untitled-mountain.herokuapp.com/"
         }
     },
+    "grotesk": {
+        "title":"Grotesk",
+        "tags": ["web design", "fashion design", "letter design"],
+        "year": 2020,
+        "description": "GROTESK is a fashion collection developed in collaboration with <a href='https://www.instagram.com/thetoughtimes/' target='_blank'>Weronika Uyar</a>.<br> Computer generated patterns, constructed from geometric letters, typographically inspired. Incorporating colour as a dynamic aspect in pattern making, the GROTESK collection encapsulates hundreds of patterns, ready to be made into a collection in the future.",
+        "links": {
+            "Fabric showcase": "https://grtsk.herokuapp.com/"
+        }
+    },
+    "kabk-open-day": {
+        "title":"KABK Open Day",
+        "tags": ["web design", "identity design", "design tools design"],
+        "year": 2021,
+        "description": "The visual identity was comissioned by the Graphic Design Department of the KABK, for their Open Day in 2021. The visual identity was a collaboration with <a href='https://www.instagram.com/thetoughtimes/' target='_blank'>Weronika Uyar</a>, and <a href='https://www.instagram.com/p4olov/'' target='_blank'>Paolo Vigliotti</a>. As the information and details for the identity were not available at the time of designing, the identity was designed and translated into a browser tool to create content for instagram posts and stories by the client at a later time.",
+        "links": {
+            "KABK Graphic Design Instagram Account": "https://www.instagram.com/kabkdesign/",
+            "Online Tool": "https://kabk-design-open-day-2021.herokuapp.com/"
+        }
+    },
     "future-market": {
         "title":"Future Market",
         "tags": ["web design", "archiving"],
         "year": 2020,
         "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "stuck-figures": {
-        "title":"Stuck Figures Series",
-        "tags": ["installation design", "painting", "drawing", "print making", "product design"],
-        "year": 2020,
-        "description": "Stuck Figures are a style of drawing inspired from the feeling of feeling stuck. First developed as drawings of stick figures stuck between text, they later developed into RISO prints, ink stamps, and later an installation. Specifically the installation plays with the idea of color and opacity, and speaks of the uneasy feeling of feeling stuck in an abundance of space. This idea was later explored again using the painting medium, playing more with the idea of space, as opposed to the idea of opacity. It was also later developed into a tote bag, going back to the idea of transparency, and later developed into transparent and colourful coasters. ",
         "links": {
             "": ""
         }
@@ -71,16 +81,6 @@
         "description": ["",""],
         "links": {
             "": ""
-        }
-    },
-    "kabk-open-day": {
-        "title":"KABK Open Day",
-        "tags": ["web design", "identity design", "design tools design"],
-        "year": 2021,
-        "description": "The visual identity was comissioned by the Graphic Design Department of the KABK, for their Open Day in 2021. The visual identity was a collaboration with <a href='https://www.instagram.com/thetoughtimes/' target='_blank'>Weronika Uyar</a>, and <a href='https://www.instagram.com/p4olov/'' target='_blank'>Paolo Vigliotti</a>. As the information and details for the identity were not available at the time of designing, the identity was designed and translated into a browser tool to create content for instagram posts and stories by the client at a later time.",
-        "links": {
-            "KABK Graphic Design Instagram Account": "https://www.instagram.com/kabkdesign/",
-            "Online Tool": "https://kabk-design-open-day-2021.herokuapp.com/"
         }
     },
     "guggen-sans": {
