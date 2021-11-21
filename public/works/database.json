@@ -92,15 +92,6 @@
             "": ""
         }
     },
-    "to-the-objects": {
-        "title":"To the Objects We Left Behind...",
-        "tags": ["web design", "exhibition design", "installation design"],
-        "year": 2020,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
     "shah-sans": {
         "title":"Shah Sans",
         "tags": ["letter design"],
@@ -137,15 +128,6 @@
             "": ""
         }
     },
-    "impressions": {
-        "title":"Impressions",
-        "tags": ["print making", "riso", "publication design"],
-        "year": 2019,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
     "a-conversation-with": {
         "title":"A Conversation With Astrid Florentinus",
         "tags": ["print making", "riso", "publication design"],
@@ -155,64 +137,10 @@
             "": ""
         }
     },
-    "dubliners": {
-        "title":"Dubliners Series",
-        "tags": ["publication design"],
-        "year": 2019,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "digital-postcards": {
-        "title":"Digital Postcards",
-        "tags": ["publication design"],
-        "year": 2020,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "unmapping-europe": {
-        "title":"Unmapping Europe: Gateway to Europe",
-        "tags": ["web design", "poster design", "infographics"],
-        "year": 2020,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "paulinatrzeciak.com": {
-        "title":"paulinatrzeciak.com",
-        "tags": ["web design"],
-        "year": 2021,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
     "alexipharmakon": {
         "title":"Alexipharmakon",
         "tags": ["letter design"],
         "year": 2018,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "smalltalk": {
-        "title":"Smalltalk",
-        "tags": ["poster design"],
-        "year": 2019,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "beige-painting": {
-        "title":"Daan van Golden Re-design: Beige Painting",
-        "tags": ["performance", "painting"],
-        "year": 2019,
         "description": "",
         "links": {
             "": ""
@@ -240,60 +168,6 @@
         "title":"Battle For Paradise Re-design",
         "tags": ["publication design"],
         "year": 2020,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "atlantis": {
-        "title":"Atlantis",
-        "tags": ["video work", "performance"],
-        "year": 2020,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "room-of-memories": {
-        "title":"Room of Memories",
-        "tags": ["video work", "installation", "publication"],
-        "year": 2021,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "still-lifes": {
-        "title":"Still Lifes",
-        "tags": ["drawing", "still life"],
-        "year": 2017,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "borders": {
-        "title":"Borders/Sınır",
-        "tags": ["installation design", "exhibition design"],
-        "year": 2018,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "interstellar-overdrive": {
-        "title":"Interstellar Overdrive",
-        "tags": ["collage", "painting"],
-        "year": 2018,
-        "description": "",
-        "links": {
-            "": ""
-        }
-    },
-    "mountain-series": {
-        "title":"Mountain Series",
-        "tags": ["collage", "painting", "drawing"],
-        "year": 2018,
         "description": "",
         "links": {
             "": ""

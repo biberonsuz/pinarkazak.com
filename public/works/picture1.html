@@ -14,33 +14,35 @@
                 padding-right: 3vh;
                 padding-bottom:0;
             }
+            iframe {
+                -webkit-filter: drop-shadow(0 15px 15px #616979 );
+                filter: drop-shadow(0 15px 15px #616979);
+            }
         </style>
     </head>
     <body>
         <nav>
             <h><a href="/">PINAR KAZAK</a></h>
-            <span><a href="/tags">WORKS</a></span>
+            <span><a href="/categories">WORKS</a></span>
             <span><a href="/about">ABOUT</a></span>
         </nav>
         <div id="gallery">
             <div class="info">
                 <p></p>
             </div>   
-            <div class="single"><img src="img/picture1/0.png"></div>
-            <div class="single"><img src="img/picture1/1.png"></div>
-            <div class="single"><img src="img/picture1/2.png"></div>
-            <div class="single"><img src="img/picture1/3.png"></div>
-            <div class="single"><img src="img/picture1/4.png"></div>
-            <div class="single"><img src="img/picture1/5.png"></div>
-            <div class="single"><img src="img/picture1/6.png"></div>
-            <div class="single"><img src="img/picture1/7.png"></div>
-            <div class="single"><img src="img/picture1/8.png"></div>
-        </div>
+            <div class="double"><img src="img/picture1/0.png"><img src="img/picture1/1.png"></div>
+            <div class="double">
+                <div class="video" style="height:calc(calc(50% - 3.8vh))">
+                    <div style="padding: 3.334vh 0;margin-bottom:.5vh;"><iframe width="440" height="315" style="min-height: 100%;min-width: 100%
+                    ;" src="https://www.youtube.com/embed/GJvObZWw3Nc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                </div>
+            </div>
         <footer>
             <span id="title">PICTURE 1 FAILED TRY AGAIN.</span>
             <span id="tags"><a href="/tags/publication-design.html">PUBLICATION DESIGN</a></span>
             <span id="year">2020</span>
         </footer>
         <script src="works.js"></script>
+        <script src="video.js"></script>
     </body>
 </html>
